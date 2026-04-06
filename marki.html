@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marki — Alice.dev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg: #FAFAF5;
+            --bg2: #F2F0E8;
+            --panel: #FFFFFF;
+            --border: #E0DDD0;
+            --dark: #1A1714;
+            --muted: #7A7570;
+            --cyan: #0099AA;
+            --pink: #E0215A;
+            --purple: #5B21B6;
+            --yellow: #D4A000;
+            --green: #1A7A4A;
+            --pixel: 'Press Start 2P', monospace;
+            --mono: 'Share Tech Mono', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--dark);
+            font-family: var(--mono);
+            overflow-x: hidden;
+            line-height: 1.6
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.012) 3px, rgba(0, 0, 0, 0.012) 4px);
+            pointer-events: none;
+            z-index: 9999
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(250, 250, 245, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid var(--cyan);
+            padding: 0.9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem
+        }
+
+        .nav-logo {
+            font-family: var(--pixel);
+            font-size: 0.55rem;
+            color: var(--dark);
+            text-decoration: none;
+            letter-spacing: 0.1em
+        }
+
+        .nav-logo span {
+            color: var(--cyan)
+        }
+
+        .back-btn {
+            font-family: var(--pixel);
+            font-size: 0.38rem;
+            color: var(--cyan);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 2px solid var(--cyan);
+            padding: 0.4rem 0.8rem;
+            transition: all 0.2s
+        }
+
+        .back-btn:hover {
+            background: var(--cyan);
+            color: #fff
+        }
+
+        /* HERO DO PROJETO */
+        .proj-hero {
+            padding: 7rem 4rem 4rem;
+            position: relative;
+            border-bottom: 3px solid var(--border);
+            background: var(--bg2)
+        }
+
+        .proj-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(0, 153, 170, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 153, 170, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none
+        }
+
+        .proj-tag {
+            font-family: var(--pixel);
+            font-size: 0.35rem;
+            color: var(--pink);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1
+        }
+
+        .proj-title {
+            font-family: var(--pixel);
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 3px 3px 0 var(--purple)
+        }
+
+        .proj-subtitle {
+            font-family: var(--pixel);
+            font-size: 0.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.05em
+        }
+
+        .proj-desc {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 680px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--cyan);
+            padding-left: 1rem;
+            position: relative;
+            z-index: 1
+        }
+
+        .meta-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.5rem
+        }
+
+        .meta-item {
+            background: var(--panel);
+            border: 2px solid var(--border);
+            padding: 0.6rem 1rem
+        }
+
+        .meta-label {
+            font-family: var(--pixel);
+            font-size: 0.28rem;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.1em
+        }
+
+        .meta-value {
+            font-family: var(--pixel);
+            font-size: 0.4rem;
+            color: var(--cyan)
+        }
+
+        .proj-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            position: relative;
+            z-index: 1
+        }
+
+        .tag {
+            font-family: var(--pixel);
+            font-size: 0.33rem;
+            padding: 0.35rem 0.7rem;
+            border: 2px solid;
+            letter-spacing: 0.07em
+        }
+
+        .tc {
+            border-color: var(--cyan);
+            color: var(--cyan)
+        }
+
+        .tp {
+            border-color: var(--pink);
+            color: var(--pink)
+        }
+
+        .ty {
+            border-color: var(--yellow);
+            color: var(--yellow)
+        }
+
+        .tg {
+            border-color: var(--green);
+            color: var(--green)
+        }
+
+        .tpu {
+            border-color: var(--purple);
+            color: var(--purple)
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem
+        }
+
+        .block {
+            margin-bottom: 4rem
+        }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--border)
+        }
+
+        .block-icon {
+            font-size: 1.2rem
+        }
+
+        .block-title {
+            font-family: var(--pixel);
+            font-size: 0.6rem;
+            color: var(--dark);
+            letter-spacing: 0.05em
+        }
+
+        .block-title span {
+            color: var(--cyan)
+        }
+
+        p.body {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.85;
+            margin-bottom: 1rem
+        }
+
+        h3.sub {
+            font-family: var(--pixel);
+            font-size: 0.45rem;
+            color: var(--pink);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em
+        }
+
+        h3.sub::before {
+            content: '// ';
+            color: var(--cyan)
+        }
+
+        /* SCRUM BOARD */
+        .scrum-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem
+        }
+
+        .scrum-col {
+            background: var(--bg2);
+            border: 2px solid var(--border);
+            padding: 1rem
+        }
+
+        .scrum-col-title {
+            font-family: var(--pixel);
+            font-size: 0.35rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
+            letter-spacing: 0.08em
+        }
+
+        .col-todo .scrum-col-title {
+            color: var(--muted);
+            border-color: var(--muted)
+        }
+
+        .col-doing .scrum-col-title {
+            color: var(--cyan);
+            border-color: var(--cyan)
+        }
+
+        .col-done .scrum-col-title {
+            color: var(--green);
+            border-color: var(--green)
+        }
+
+        .scrum-card {
+            background: var(--panel);
+            border: 2px solid var(--border);
+            padding: 0.5rem 0.65rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.72rem;
+            color: var(--dark)
+        }
+
+        .scrum-card.done {
+            color: var(--muted);
+            text-decoration: line-through
+        }
+
+        .sprint-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem
+        }
+
+        .sprint-badge {
+            font-family: var(--pixel);
+            font-size: 0.32rem;
+            padding: 0.4rem 0.75rem;
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+            background: var(--panel)
+        }
+
+        /* CARDS DE DECISÃO */
+        .decision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem
+        }
+
+        .decision-card {
+            background: var(--panel);
+            border: 2px solid var(--border);
+            padding: 1.25rem;
+            position: relative
+        }
+
+        .decision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px
+        }
+
+        .dec-why::before {
+            background: var(--cyan)
+        }
+
+        .dec-what::before {
+            background: var(--pink)
+        }
+
+        .dec-result::before {
+            background: var(--green)
+        }
+
+        .dec-label {
+            font-family: var(--pixel);
+            font-size: 0.3rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            display: block
+        }
+
+        .dec-title {
+            font-family: var(--pixel);
+            font-size: 0.45rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem
+        }
+
+        .dec-text {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        /* DESAFIOS */
+        .challenge-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .challenge-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--panel);
+            border: 2px solid var(--border)
+        }
+
+        .challenge-icon {
+            font-family: var(--pixel);
+            font-size: 0.6rem;
+            flex-shrink: 0;
+            width: 28px
+        }
+
+        .challenge-content {}
+
+        .challenge-title {
+            font-family: var(--pixel);
+            font-size: 0.4rem;
+            margin-bottom: 0.4rem;
+            color: var(--dark)
+        }
+
+        .challenge-text {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .challenge-item.solved .challenge-icon {
+            color: var(--green)
+        }
+
+        .challenge-item.wip .challenge-icon {
+            color: var(--yellow)
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem
+        }
+
+        .result-card {
+            background: var(--panel);
+            border: 2px solid var(--border);
+            padding: 1.25rem;
+            text-align: center
+        }
+
+        .result-num {
+            font-family: var(--pixel);
+            font-size: 1rem;
+            color: var(--cyan);
+            display: block;
+            margin-bottom: 0.4rem
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            line-height: 1.5
+        }
+
+        /* PRÓXIMOS PASSOS */
+        .next-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem
+        }
+
+        .next-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.65rem 1rem;
+            background: var(--panel);
+            border: 2px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--muted)
+        }
+
+        .next-list li::before {
+            content: '▶';
+            color: var(--cyan);
+            font-family: var(--pixel);
+            font-size: 0.4rem;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        /* NAVEGAÇÃO PROJETOS */
+        .proj-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4rem;
+            border-top: 3px solid var(--border);
+            background: var(--bg2);
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .proj-nav a {
+            font-family: var(--pixel);
+            font-size: 0.38rem;
+            color: var(--cyan);
+            text-decoration: none;
+            border: 2px solid var(--cyan);
+            padding: 0.5rem 1rem;
+            transition: all 0.2s;
+            letter-spacing: 0.08em
+        }
+
+        .proj-nav a:hover {
+            background: var(--cyan);
+            color: #fff
+        }
+
+        .proj-nav-center {
+            font-family: var(--pixel);
+            font-size: 0.4rem;
+            color: var(--muted)
+        }
+
+        footer {
+            background: var(--bg);
+            border-top: 3px solid var(--cyan);
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        footer p {
+            font-family: var(--pixel);
+            font-size: 0.33rem;
+            color: var(--muted);
+            letter-spacing: 0.07em
+        }
+
+        footer p span {
+            color: var(--cyan)
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s, transform 0.6s
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        @media(max-width:768px) {
+            .proj-hero {
+                padding: 6rem 1.5rem 3rem
+            }
+
+            .content {
+                padding: 3rem 1.5rem
+            }
+
+            .scrum-board {
+                grid-template-columns: 1fr
+            }
+
+            .decision-grid {
+                grid-template-columns: 1fr
+            }
+
+            .proj-nav {
+                padding: 1.5rem
+            }
+
+            footer {
+                padding: 1.25rem 1.5rem;
+                flex-direction: column;
+                text-align: center
+            }
+        }
+
+        @media(max-width:480px) {
+            .proj-title {
+                font-size: 1.2rem
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">alice<span>.dev</span></a>
+        <a href="index.html#projetos" class="back-btn">← voltar</a>
+    </nav>
+
+    <!-- HERO -->
+    <div class="proj-hero">
+        <p class="proj-tag">✦ extensão universitária · mobile · 2025 — atual</p>
+        <h1 class="proj-title">Marki</h1>
+        <p class="proj-subtitle">// app mobile para gestão de rotina de MEIs</p>
+        <p class="proj-desc">O Marki nasceu de uma necessidade real: microempreendedores individuais que gerenciam seus
+            negócios no improviso, sem ferramentas acessíveis. O projeto de extensão universitária virou um laboratório
+            onde coloquei em prática desenvolvimento mobile, metodologias ágeis e decisões de arquitetura do zero.</p>
+        <div class="meta-grid">
+            <div class="meta-item"><span class="meta-label">TIPO</span><span class="meta-value">Extensão
+                    Universitária</span></div>
+            <div class="meta-item"><span class="meta-label">PERÍODO</span><span class="meta-value">2025 — Atual</span>
+            </div>
+            <div class="meta-item"><span class="meta-label">PAPEL</span><span class="meta-value">Líder &
+                    Desenvolvedora</span></div>
+            <div class="meta-item"><span class="meta-label">PLATAFORMA</span><span class="meta-value">iOS &
+                    Android</span></div>
+        </div>
+        <div class="proj-stack">
+            <span class="tag tc">React Native</span><span class="tag tp">TypeScript</span>
+            <span class="tag ty">Firebase</span><span class="tag tg">Expo</span>
+            <span class="tag tpu">Expo Router</span><span class="tag tc">Scrum</span>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="block fade-in">
+            <div class="block-header">
+                <span class="block-icon">🏃</span>
+                <h2 class="block-title">como apliquei <span>scrum</span></h2>
+            </div>
+
+            <h3 class="sub">Estrutura das sprints</h3>
+            <p class="body">Por ser um projeto solo com prazo acadêmico, adaptei o Scrum para sprints de 2 semanas com
+                foco em uma funcionalidade principal por ciclo. Cada sprint tinha backlog definido, desenvolvimento e
+                retrospectiva ao final.</p>
+
+            <div class="sprint-info">
+                <span class="sprint-badge">Sprint 1 — Auth + Login</span>
+                <span class="sprint-badge">Sprint 2 — Dashboard</span>
+                <span class="sprint-badge">Sprint 3 — Estoque</span>
+                <span class="sprint-badge">Sprint 4 — Rotinas</span>
+                <span class="sprint-badge">Sprint 5 — Metas</span>
+                <span class="sprint-badge">Sprint 6 — Notificações</span>
+            </div>
+
+            <h3 class="sub">Board do projeto</h3>
+            <div class="scrum-board">
+                <div class="scrum-col col-todo">
+                    <div class="scrum-col-title">📋 backlog</div>
+                    <div class="scrum-card">Análise de mês</div>
+                    <div class="scrum-card">Relatórios PDF</div>
+                    <div class="scrum-card">Modo offline</div>
+                </div>
+                <div class="scrum-col col-doing">
+                    <div class="scrum-col-title">⚡ em progresso</div>
+                    <div class="scrum-card">Regras do Firestore</div>
+                    <div class="scrum-card">Testes no celular</div>
+                    <div class="scrum-card">Responsividade</div>
+                </div>
+                <div class="scrum-col col-done">
+                    <div class="scrum-col-title">✓ entregue</div>
+                    <div class="scrum-card done">Autenticação Firebase</div>
+                    <div class="scrum-card done">Controle de estoque</div>
+                    <div class="scrum-card done">Rotinas diárias</div>
+                    <div class="scrum-card done">Metas financeiras</div>
+                    <div class="scrum-card done">Notificações locais</div>
+                    <div class="scrum-card done">Organização do código</div>
+                </div>
+            </div>
+
+            <p class="body">A retrospectiva de cada sprint foi essencial para ajustar o escopo. Por exemplo, na Sprint 3
+                percebi que o NativeWind estava causando problemas no Windows e tomei a decisão de migrar para
+                StyleSheet nativo — uma escolha técnica que veio de uma retrospectiva honesta.</p>
+        </div>
+
+        <!-- DECISÕES TÉCNICAS -->
+        <div class="block fade-in">
+            <div class="block-header">
+                <span class="block-icon">💻</span>
+                <h2 class="block-title">decisões <span>técnicas</span></h2>
+            </div>
+
+            <div class="decision-grid">
+                <div class="decision-card dec-why">
+                    <span class="dec-label">POR QUE</span>
+                    <h3 class="dec-title">React Native</h3>
+                    <p class="dec-text">Já tinha familiaridade com React e queria uma solução cross-platform real. O
+                        ecossistema Expo simplificou muito o setup inicial e permitiu focar na lógica do app.</p>
+                </div>
+                <div class="decision-card dec-what">
+                    <span class="dec-label">POR QUE</span>
+                    <h3 class="dec-title">Firebase</h3>
+                    <p class="dec-text">Backend as a Service que eliminou a necessidade de um servidor próprio.
+                        Autenticação, Firestore em tempo real e regras de segurança por usuário — tudo integrado,
+                        perfeito para o escopo acadêmico.</p>
+                </div>
+                <div class="decision-card dec-why">
+                    <span class="dec-label">POR QUE</span>
+                    <h3 class="dec-title">TypeScript</h3>
+                    <p class="dec-text">Tipagem estática que previne bugs silenciosos. Em um projeto solo, o TypeScript
+                        funciona como um par que revisa o código em tempo real — interfaces claras para InventoryItem,
+                        RoutineItem e GoalItem.</p>
+                </div>
+                <div class="decision-card dec-result">
+                    <span class="dec-label">DECISÃO DE ARQUITETURA</span>
+                    <h3 class="dec-title">StyleSheet nativo</h3>
+                    <p class="dec-text">Tentei NativeWind mas havia incompatibilidade no Windows. Optei por StyleSheet
+                        puro do React Native — mais verboso, porém 100% confiável e sem dependências extras.</p>
+                </div>
+            </div>
+
+            <h3 class="sub">Organização do código</h3>
+            <p class="body">Separei o projeto em hooks, services e components para isolar responsabilidades. O hook
+                <strong>useMarki</strong> centraliza os listeners do Firestore, evitando memory leaks com cleanup
+                correto. O <strong>firestoreActions</strong> valida dados antes de salvar — preço negativo não passa,
+                por exemplo.</p>
+        </div>
+
+        <!-- DESAFIOS -->
+        <div class="block fade-in">
+            <div class="block-header">
+                <span class="block-icon">⚡</span>
+                <h2 class="block-title">desafios & <span>aprendizados</span></h2>
+            </div>
+
+            <div class="challenge-list">
+                <div class="challenge-item solved">
+                    <span class="challenge-icon">✓</span>
+                    <div class="challenge-content">
+                        <h4 class="challenge-title">Memory leak nos listeners do Firestore</h4>
+                        <p class="challenge-text">Os listeners onSnapshot ficavam abertos mesmo após logout. Resolvi com
+                            cleanup correto no useEffect — variáveis declaradas fora do callback do onAuthStateChanged e
+                            limpas no return do effect.</p>
+                    </div>
+                </div>
+                <div class="challenge-item solved">
+                    <span class="challenge-icon">✓</span>
+                    <div class="challenge-content">
+                        <h4 class="challenge-title">NativeWind incompatível no Windows</h4>
+                        <p class="challenge-text">O metro.config.js do NativeWind falhava por questão de paths no
+                            Windows. Tomei a decisão de usar StyleSheet nativo — mais trabalho, zero dependência
+                            problemática.</p>
+                    </div>
+                </div>
+                <div class="challenge-item solved">
+                    <span class="challenge-icon">✓</span>
+                    <div class="challenge-content">
+                        <h4 class="challenge-title">Teclado cobrindo o modal no celular</h4>
+                        <p class="challenge-text">No iOS, o teclado cobria os campos de input do modal. Solução:
+                            KeyboardAvoidingView com behavior='padding' no iOS e 'height' no Android.</p>
+                    </div>
+                </div>
+                <div class="challenge-item solved">
+                    <span class="challenge-icon">✓</span>
+                    <div class="challenge-content">
+                        <h4 class="challenge-title">API Key exposta no código</h4>
+                        <p class="challenge-text">As credenciais do Firebase estavam hardcoded. Migrei para variáveis de
+                            ambiente com EXPO_PUBLIC_ e configurei o .gitignore corretamente.</p>
+                    </div>
+                </div>
+                <div class="challenge-item wip">
+                    <span class="challenge-icon">→</span>
+                    <div class="challenge-content">
+                        <h4 class="challenge-title">Análise de mês e relatórios</h4>
+                        <p class="challenge-text">Funcionalidade planejada para os próximos sprints — filtrar transações
+                            por mês e gerar visualizações. Os dados já estão estruturados no Firestore para suportar
+                            isso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="block fade-in">
+            <div class="block-header">
+                <span class="block-icon">🎯</span>
+                <h2 class="block-title">resultados & <span>impacto</span></h2>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-card"><span class="result-num">6+</span><span class="result-label">Funcionalidades
+                        entregues</span></div>
+                <div class="result-card"><span class="result-num">6</span><span class="result-label">Sprints
+                        concluídos</span></div>
+                <div class="result-card"><span class="result-num">100%</span><span class="result-label">TypeScript no
+                        projeto</span></div>
+                <div class="result-card"><span class="result-num">iOS &<br>Android</span><span
+                        class="result-label">Plataformas suportadas</span></div>
+            </div>
+
+            <p class="body">O Marki me ensinou que construir um app completo é muito mais do que escrever código. É
+                tomar decisões de arquitetura, resolver problemas de compatibilidade, proteger dados dos usuários e
+                organizar o trabalho em ciclos realistas. Cada bug resolvido foi uma aula prática que nenhuma videoaula
+                substituiria.</p>
+
+            <h3 class="sub">Próximos passos</h3>
+            <ul class="next-list">
+                <li>Análise financeira por mês com gráficos</li>
+                <li>Regras de segurança avançadas no Firestore</li>
+                <li>Personalização de e-mail e domínio no Firebase</li>
+                <li>Testes com usuários MEIs reais</li>
+                <li>Publicação na Play Store e App Store</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- NAVEGAÇÃO -->
+    <div class="proj-nav">
+        <a href="index.html#projetos">← todos os projetos</a>
+        <span class="proj-nav-center">01 / 02</span>
+        <a href="escudodigital.html">escudo digital →</a>
+    </div>
+
+    <footer>
+        <p>© 2026 <span>Alice Alves de Sousa</span></p>
+        <p>feito com <span>♥</span> + pixel art</p>
+    </footer>
+
+    <script>
+        const obs = new IntersectionObserver((es) => { es.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100) }) }, { threshold: 0.08 });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    </script>
+</body>
+
+</html>

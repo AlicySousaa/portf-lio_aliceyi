@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alice Alves — Portfólio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#FAFAF5;--bg2:#F2F0E8;--panel:#FFFFFF;--border:#E0DDD0;
+      --dark:#1A1714;--muted:#7A7570;
+      --cyan:#0099AA;--pink:#E0215A;--purple:#5B21B6;
+      --yellow:#D4A000;--green:#1A7A4A;--accent:#0099AA;
+      --pixel:'Press Start 2P',monospace;--mono:'Share Tech Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--dark);font-family:var(--mono);overflow-x:hidden;line-height:1.6}
+
+    body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.012) 3px,rgba(0,0,0,0.012) 4px);pointer-events:none;z-index:9999}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,250,245,0.95);backdrop-filter:blur(8px);border-bottom:3px solid var(--cyan);padding:0.9rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .nav-logo{font-family:var(--pixel);font-size:0.55rem;color:var(--dark);text-decoration:none;letter-spacing:0.1em}
+    .nav-logo span{color:var(--cyan)}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-family:var(--pixel);font-size:0.38rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;white-space:nowrap}
+    .nav-links a:hover{color:var(--cyan)}
+    .nav-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6rem;color:var(--green);white-space:nowrap}
+    .dot{width:8px;height:8px;background:var(--green);flex-shrink:0;animation:blink 1s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:3px;background:var(--dark);transition:all 0.3s}
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+    .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:3px solid var(--cyan);padding:1.5rem 2rem;flex-direction:column;gap:1rem;z-index:99}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-family:var(--pixel);font-size:0.5rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+    .mobile-menu a:hover{color:var(--cyan)}
+
+    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 4rem 4rem;gap:4rem;position:relative}
+    .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,153,170,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,153,170,0.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+    .hero-text{position:relative;z-index:1}
+    .prompt{font-family:var(--pixel);font-size:0.45rem;color:var(--green);margin-bottom:1.25rem;letter-spacing:0.1em}
+    .prompt::before{content:'> ';color:var(--cyan)}
+    .hero-name{font-family:var(--pixel);font-size:clamp(1rem,2.5vw,1.8rem);line-height:1.7;margin-bottom:0.75rem;color:var(--dark)}
+    .hero-name .c{color:var(--cyan)} .hero-name .p{color:var(--pink)}
+    .hero-role{font-family:var(--pixel);font-size:0.45rem;color:var(--yellow);margin-bottom:1.5rem;letter-spacing:0.08em}
+    .hero-desc{font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.75rem;max-width:460px;border-left:4px solid var(--cyan);padding-left:1rem}
+    .tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.75rem}
+    .tag{font-family:var(--pixel);font-size:0.33rem;padding:0.35rem 0.7rem;border:2px solid;letter-spacing:0.07em}
+    .tc{border-color:var(--cyan);color:var(--cyan)} .tp{border-color:var(--pink);color:var(--pink)}
+    .ty{border-color:var(--yellow);color:var(--yellow)} .tg{border-color:var(--green);color:var(--green)}
+    .tpu{border-color:var(--purple);color:var(--purple)}
+    .btns{display:flex;gap:0.75rem;flex-wrap:wrap}
+    .btn{font-family:var(--pixel);font-size:0.38rem;padding:0.7rem 1.25rem;text-decoration:none;letter-spacing:0.08em;transition:all 0.15s;display:inline-flex;align-items:center;gap:0.4rem;text-transform:uppercase;border:3px solid}
+    .btn-p{background:var(--cyan);color:#fff;border-color:var(--cyan);box-shadow:3px 3px 0 var(--purple)}
+    .btn-p:hover{box-shadow:1px 1px 0 var(--purple);transform:translate(2px,2px)}
+    .btn-s{background:transparent;color:var(--pink);border-color:var(--pink);box-shadow:3px 3px 0 var(--purple)}
+    .btn-s:hover{box-shadow:1px 1px 0 var(--purple);transform:translate(2px,2px)}
+
+
+    .hero-visual{display:flex;justify-content:center;align-items:center;position:relative;z-index:1}
+    .av-wrap{position:relative;display:flex;flex-direction:column;align-items:center}
+    .av-frame{width:260px;height:260px;border:6px solid var(--cyan);box-shadow:6px 6px 0 var(--purple);overflow:hidden;position:relative;background:var(--bg2)}
+    .av-frame img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
+    .av-tag{margin-top:0.75rem;font-family:var(--pixel);font-size:0.4rem;color:var(--cyan);background:var(--panel);border:2px solid var(--cyan);padding:0.4rem 0.8rem;letter-spacing:0.08em;text-align:center;box-shadow:3px 3px 0 var(--purple)}
+    .av-tag span{color:var(--pink)}
+    .bubble{position:absolute;background:var(--panel);border:2px solid;padding:0.35rem 0.65rem;font-family:var(--pixel);font-size:0.28rem;letter-spacing:0.05em;white-space:nowrap;box-shadow:2px 2px 0}
+    .b1{left:-140px;top:20px;border-color:var(--pink);color:var(--pink);box-shadow:2px 2px 0 var(--pink)}
+    .b2{right:-125px;bottom:60px;border-color:var(--green);color:var(--green);box-shadow:2px 2px 0 var(--green)}
+    .b3{top:-25px;right:0;border-color:var(--yellow);color:var(--yellow);box-shadow:2px 2px 0 var(--yellow)}
+
+    section{padding:5rem 4rem}
+    section:nth-child(even){background:var(--bg2)}
+    .sh{display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem}
+    .sn{font-family:var(--pixel);font-size:0.5rem;color:var(--pink);opacity:0.6}
+    .st{font-family:var(--pixel);font-size:clamp(0.55rem,1.8vw,0.85rem);color:var(--dark);letter-spacing:0.05em}
+    .st span{color:var(--cyan)}
+    .sl{flex:1;height:3px;background:linear-gradient(to right,var(--cyan),transparent)}
+
+    .timeline{position:relative;max-width:760px}
+    .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:repeating-linear-gradient(to bottom,var(--cyan) 0,var(--cyan) 8px,transparent 8px,transparent 14px)}
+    .ti{padding-left:2.5rem;margin-bottom:2.5rem;position:relative}
+    .tdot{position:absolute;left:-8px;top:0;width:18px;height:18px;background:var(--cyan);border:3px solid var(--bg)}
+    .tdate{font-family:var(--pixel);font-size:0.35rem;color:var(--yellow);margin-bottom:0.4rem;letter-spacing:0.1em}
+    .ttitle{font-family:var(--pixel);font-size:0.45rem;color:var(--cyan);margin-bottom:0.2rem;letter-spacing:0.04em}
+    .torg{font-size:0.8rem;color:var(--pink);margin-bottom:0.5rem}
+    .tdesc{font-size:0.82rem;color:var(--muted);line-height:1.7}
+
+    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+    .sc{background:var(--panel);padding:1.5rem;border:3px solid var(--border);position:relative;transition:transform 0.2s,box-shadow 0.2s}
+    .sc:hover{transform:translate(-3px,-3px)}
+    .sc.c1{border-color:var(--cyan)} .sc.c1:hover{box-shadow:4px 4px 0 var(--cyan)}
+    .sc.c2{border-color:var(--pink)} .sc.c2:hover{box-shadow:4px 4px 0 var(--pink)}
+    .sc.c3{border-color:var(--yellow)} .sc.c3:hover{box-shadow:4px 4px 0 var(--yellow)}
+    .sc.c4{border-color:var(--green)} .sc.c4:hover{box-shadow:4px 4px 0 var(--green)}
+    .si{font-size:1.3rem;margin-bottom:0.5rem;display:block}
+    .sname{font-family:var(--pixel);font-size:0.42rem;margin-bottom:0.5rem;letter-spacing:0.07em}
+    .c1 .sname{color:var(--cyan)} .c2 .sname{color:var(--pink)} .c3 .sname{color:var(--yellow)} .c4 .sname{color:var(--green)}
+    .sdesc{font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem}
+    .sbl{font-family:var(--pixel);font-size:0.28rem;color:var(--muted);margin-bottom:0.25rem}
+    .sbar{height:6px;background:var(--border);margin-bottom:0.35rem}
+    .sbf{height:100%}
+    .c1 .sbf{background:var(--cyan)} .c2 .sbf{background:var(--pink)} .c3 .sbf{background:var(--yellow)} .c4 .sbf{background:var(--green)}
+    .pg{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+    .pc{background:var(--panel);border:3px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:all 0.2s;text-decoration:none;display:block;color:inherit}
+    .pc::before{content:attr(data-n);position:absolute;top:1rem;right:1rem;font-family:var(--pixel);font-size:1.4rem;color:var(--border)}
+    .pc:hover{border-color:var(--cyan);box-shadow:6px 6px 0 var(--purple);transform:translate(-3px,-3px)}
+    .ptag{font-family:var(--pixel);font-size:0.28rem;color:var(--pink);letter-spacing:0.12em;margin-bottom:0.5rem}
+    .pname{font-family:var(--pixel);font-size:0.7rem;color:var(--cyan);margin-bottom:0.75rem;letter-spacing:0.04em}
+    .pdesc{font-size:0.8rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+    .pstack{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.75rem}
+    .plink{font-family:var(--pixel);font-size:0.33rem;color:var(--purple);display:flex;align-items:center;gap:0.4rem;margin-top:0.5rem}
+    .plink::before{content:'▶';color:var(--cyan)}
+
+    .cg{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    .ct{font-size:0.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.75rem;border-left:4px solid var(--pink);padding-left:1rem}
+    .cl{display:flex;flex-direction:column;gap:0.6rem}
+    .clink{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.9rem;background:var(--panel);border:2px solid var(--border);text-decoration:none;transition:all 0.2s}
+    .clink:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--purple);transform:translate(-2px,-2px)}
+    .cicon{font-family:var(--pixel);font-size:0.5rem;width:24px;text-align:center}
+    .clabel{font-family:var(--pixel);font-size:0.27rem;color:var(--muted);display:block;margin-bottom:0.1rem}
+    .cval{font-size:0.78rem;color:var(--dark)}
+    .cf{display:flex;flex-direction:column;gap:1.1rem}
+    .fg{display:flex;flex-direction:column;gap:0.35rem}
+    .fl{font-family:var(--pixel);font-size:0.3rem;color:var(--cyan);letter-spacing:0.12em}
+    .fi,.fta{background:var(--bg2);border:2px solid var(--border);padding:0.65rem 0.9rem;font-family:var(--mono);font-size:0.85rem;color:var(--dark);outline:none;transition:border-color 0.2s;width:100%}
+    .fi:focus,.fta:focus{border-color:var(--cyan)}
+    .fta{resize:none;min-height:90px}
+
+    footer{background:var(--bg);border-top:3px solid var(--cyan);padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    footer p{font-family:var(--pixel);font-size:0.33rem;color:var(--muted);letter-spacing:0.07em}
+    footer p span{color:var(--cyan)}
+
+    .fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1024px){
+      .hero{padding:7rem 2.5rem 4rem;gap:2rem}
+      .b1,.b2,.b3{display:none}
+      section{padding:4rem 2.5rem}
+    }
+    @media(max-width:768px){
+      nav{padding:0.8rem 1.25rem}
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .nav-status{display:none}
+      .hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem;text-align:center}
+      .hero-visual{order:-1}
+      .av-frame{width:200px;height:200px}
+      .hero-desc{border-left:none;border-top:4px solid var(--cyan);padding-left:0;padding-top:0.75rem;max-width:100%}
+      .tags,.btns{justify-content:center}
+      section{padding:3rem 1.5rem}
+      .pg{grid-template-columns:1fr}
+      .cg{grid-template-columns:1fr;gap:2rem}
+      footer{padding:1.25rem 1.5rem;flex-direction:column;text-align:center}
+    }
+    @media(max-width:480px){
+      .hero-name{font-size:0.9rem}
+      .sh{flex-wrap:wrap}
+      .sl{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Alice<span>Alves</span></a>
+  <ul class="nav-links">
+    <li><a href="#trajetoria">trajetória</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projetos">projetos</a></li>
+    <li><a href="#contato">contato</a></li>
+  </ul>
+  <div class="nav-status"><div class="dot"></div>disponível</div>
+  <div class="hamburger" onclick="toggleMenu()" id="ham">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mob">
+  <a href="#trajetoria" onclick="closeMenu()">trajetória</a>
+  <a href="#skills" onclick="closeMenu()">skills</a>
+  <a href="#projetos" onclick="closeMenu()">projetos</a>
+  <a href="#contato" onclick="closeMenu()">contato</a>
+</div>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="prompt">olá, mundo!</p>
+    <h1 class="hero-name"><span class="c">Alice</span><br><span class="p">Alves</span><br>de Sousa</h1>
+    <p class="hero-role">// estudante · desenvolvedora · líder</p>
+    <p class="hero-desc">Estudante de ADS apaixonada por tecnologia, metodologias ágeis e projetos com impacto real. Me encontrei construindo — e não pretendo parar.</p>
+    <div class="tags">
+      <span class="tag tc">React Native</span>
+      <span class="tag tp">Firebase</span>
+      <span class="tag ty">Scrum</span>
+      <span class="tag tg">TypeScript</span>
+      <span class="tag tpu">Kanban</span>
+      <span class="tag tc">Suporte TI</span>
+    </div>
+    <div class="btns">
+      <a href="#projetos" class="btn btn-p">▶ projetos</a>
+      <a href="#contato" class="btn btn-s">✉ contato</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="av-wrap">
+      <div class="bubble b3">✦ ADS · 5º período</div>
+      <div class="bubble b1">⚡ React Native + Firebase</div>
+      <div class="bubble b2">✓ Scrum em prática</div>
+      <div class="av-frame"><img src="./src/img/Avatar.png""Alice pixel art"/></div>
+      <div class="av-tag">ALICE<span>Alves</span> — LVL 5</div>
+    </div>
+  </div>
+</section>
+
+<section id="trajetoria">
+  <div class="sh fade-in"><span class="sn">01</span><h2 class="st">minha <span>trajetória</span></h2><div class="sl"></div></div>
+  <div class="timeline">
+    <div class="ti fade-in">
+      <div class="tdot"></div>
+      <p class="tdate">Início em 02/2026 — ATUAL</p>
+      <h3 class="ttitle">líder & desenvolvedora · marki</h3>
+      <p class="torg">Extensão Universitária</p>
+      <p class="tdesc">App mobile para empreendedores e vendedores autônomos do zero. Me encontrei como desenvolvedora e líder — escolhi a stack, arquitetei o projeto e entreguei funcionalidades reais com React Native, TypeScript e Firebase.</p>
+    </div>
+    <div class="ti fade-in">
+      <div class="tdot" style="background:var(--pink)"></div>
+      <p class="tdate">Início em 03/2026 — ATUAL</p>
+      <h3 class="ttitle">líder & desenvolvedora · escudo digital</h3>
+      <p class="torg">Extensão Universitária · Lei Felca</p>
+      <p class="tdesc">Liderança com Scrum e Jira. Mini Jogo Mobile, Jogo no ambiente de Criação do Roblox e Chatbot Python para educação em segurança digital. Aprendi que metodologia é tão importante quanto o código.</p>
+    </div>
+    <div class="ti fade-in">
+      <div class="tdot" style="background:var(--yellow)"></div>
+      <p class="tdate">05/2025 — 07/2025</p>
+      <h3 class="ttitle">estagiária & instrutora</h3>
+      <p class="torg">Instituto Profissionalizante</p>
+      <p class="tdesc">Suporte técnico e aulas de informática. Aprendi que ensinar é uma das melhores formas de aprender.</p>
+    </div>
+    <div class="ti fade-in">
+      <div class="tdot" style="background:var(--green)"></div>
+      <p class="tdate">08/2024 — 04/2025</p>
+      <h3 class="ttitle">estagiária de suporte N1/N2</h3>
+      <p class="torg">Asp New Pred · Teresina, PI</p>
+      <p class="tdesc">Atendimento remoto em múltiplos estados, infraestrutura TCP/IP e DNS. Primeiro contato real com TI — resolutividade e comunicação andam juntas.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sh fade-in"><span class="sn">02</span><h2 class="st">skills & <span>metodologias</span></h2><div class="sl"></div></div>
+  <div class="sg">
+    <div class="sc c1 fade-in"><span class="si">🏃</span><h3 class="sname">Scrum</h3><p class="sdesc">Framework ágil aplicado na liderança dos projetos. Sprints, dailies, retrospectivas — processo bem definido libera criatividade.</p><p class="sbl">experiência prática</p><div class="sbar"><div class="sbf" style="width:75%"></div></div></div>
+    <div class="sc c2 fade-in"><span class="si">📋</span><h3 class="sname">Kanban · Jira · Trello</h3><p class="sdesc">Visualização de fluxo. Trello no suporte N1/N2, Jira na liderança de projetos. Saber onde cada tarefa está muda tudo.</p><p class="sbl">experiência prática</p><div class="sbar"><div class="sbf" style="width:80%"></div></div></div>
+    <div class="sc c3 fade-in"><span class="si">💻</span><h3 class="sname">Desenvolvimento</h3><p class="sdesc">React Native · TypeScript · Firebase · Python · JavaScript. Foco em mobile e front-end com back-end como serviço.</p><p class="sbl">em evolução constante</p><div class="sbar"><div class="sbf" style="width:65%"></div></div></div>
+    <div class="sc c4 fade-in"><span class="si">🛠</span><h3 class="sname">Suporte & Infra</h3><p class="sdesc">Service Desk N1/N2 · TCP/IP · DNS · AnyDesk · Windows. Base que me faz entender tecnologia de ponta a ponta.</p><p class="sbl">experiência profissional</p><div class="sbar"><div class="sbf" style="width:85%"></div></div></div>
+  </div>
+</section>
+
+<section id="projetos">
+  <div class="sh fade-in"><span class="sn">03</span><h2 class="st">projetos em <span>destaque</span></h2><div class="sl"></div></div>
+  <div class="pg">
+    <a href="marki.html" class="pc fade-in" data-n="01">
+      <p class="ptag">✦ extensão universitária · mobile</p>
+      <h3 class="pname">Marki</h3>
+      <p class="pdesc">App mobile para gestão de rotina de empreendedores. Login, controle de estoque, rotinas diárias, metas financeiras e notificações locais. Do zero à funcionalidade real.</p>
+      <div class="pstack"><span class="tag tc">React Native</span><span class="tag tp">TypeScript</span><span class="tag ty">Firebase</span><span class="tag tg">Expo</span></div>
+      <p class="plink">ver projeto completo</p>
+    </a>
+    <a href="escudo-digital.html" class="pc fade-in" data-n="02">
+      <p class="ptag">✦ Extensão universitária · segurança digital</p>
+      <h3 class="pname">Escudo Digital</h3>
+      <p class="pdesc">Projeto educacional focado na Lei Felca. Mini Jogo Mobile para ensino de boas práticas e Chatbot Python para simulação de engenharia social.</p>
+      <div class="pstack"><span class="tag tc">React</span><span class="tag tp">Python</span><span class="tag ty">Jira</span><span class="tag tg">Scrum</span></div>
+      <p class="plink">ver projeto completo</p>
+    </a>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="sh fade-in"><span class="sn">04</span><h2 class="st">vamos <span>conversar</span></h2><div class="sl"></div></div>
+  <div class="cg">
+    <div class="fade-in">
+      <p class="ct">Estou aberta a oportunidades, colaborações e boas conversas sobre tecnologia, metodologias e projetos com propósito!</p>
+      <div class="cl">
+        <a href="mailto:liceee4ia@gmail.com" class="clink"><span class="cicon" style="color:var(--pink)">✉</span><div><span class="clabel">E-MAIL</span><span class="cval">liceee4ia@gmail.com</span></div></a>
+        <a href="https://linkedin.com/in/alice-alves-b76a6238b" target="_blank" class="clink"><span class="cicon" style="color:var(--cyan)">in</span><div><span class="clabel">LINKEDIN</span><span class="cval">alice-alves-b76a6238b</span></div></a>
+        <a href="https://github.com/AlicySousaa" target="_blank" class="clink"><span class="cicon" style="color:var(--purple)">gh</span><div><span class="clabel">GITHUB</span><span class="cval">AlicySousaa</span></div></a>
+        <a href="tel:+5586999626978" class="clink"><span class="cicon" style="color:var(--green)">☎</span><div><span class="clabel">TELEFONE</span><span class="cval">(86) 99962-6978</span></div></a>
+      </div>
+    </div>
+    <form class="cf fade-in" onsubmit="handleForm(event)">
+      <div class="fg"><label class="fl">// nome</label><input type="text" class="fi" placeholder="seu nome" required/></div>
+      <div class="fg"><label class="fl">// e-mail</label><input type="email" class="fi" placeholder="seu@email.com" required/></div>
+      <div class="fg"><label class="fl">// mensagem</label><textarea class="fta" placeholder="olá Alice..."></textarea></div>
+      <button type="submit" class="btn btn-p" style="align-self:flex-start">▶ enviar</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Alice Alves de Sousa</span> — Teresina, PI</p>
+  <p>feito com <span>♥</span> + café + pixel art</p>
+</footer>
+
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*100)})},{threshold:0.08});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  function handleForm(e){e.preventDefault();const b=e.target.querySelector('button');b.textContent='✓ enviado!';b.style.background='var(--green)';b.style.borderColor='var(--green)';setTimeout(()=>{b.textContent='▶ enviar';b.style.background='';b.style.borderColor='';e.target.reset()},3000)}
+  function toggleMenu(){document.getElementById('mob').classList.toggle('open');document.getElementById('ham').classList.toggle('open')}
+  function closeMenu(){document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open')}
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>setTimeout(closeMenu,100)));
+</script>
+</body>
+</html>

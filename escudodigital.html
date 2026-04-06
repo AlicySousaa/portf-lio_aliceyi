@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escudo Digital — Alice.dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#FAFAF5;--bg2:#F2F0E8;--panel:#FFFFFF;--border:#E0DDD0;
+      --dark:#1A1714;--muted:#7A7570;
+      --cyan:#0099AA;--pink:#E0215A;--purple:#5B21B6;
+      --yellow:#D4A000;--green:#1A7A4A;
+      --pixel:'Press Start 2P',monospace;--mono:'Share Tech Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--dark);font-family:var(--mono);overflow-x:hidden;line-height:1.6}
+    body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.012) 3px,rgba(0,0,0,0.012) 4px);pointer-events:none;z-index:9999}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,250,245,0.95);backdrop-filter:blur(8px);border-bottom:3px solid var(--pink);padding:0.9rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .nav-logo{font-family:var(--pixel);font-size:0.55rem;color:var(--dark);text-decoration:none;letter-spacing:0.1em}
+    .nav-logo span{color:var(--cyan)}
+    .back-btn{font-family:var(--pixel);font-size:0.38rem;color:var(--pink);text-decoration:none;letter-spacing:0.08em;display:flex;align-items:center;gap:0.4rem;border:2px solid var(--pink);padding:0.4rem 0.8rem;transition:all 0.2s}
+    .back-btn:hover{background:var(--pink);color:#fff}
+
+    .proj-hero{padding:7rem 4rem 4rem;position:relative;border-bottom:3px solid var(--border);background:var(--bg2)}
+    .proj-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(224,33,90,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(224,33,90,0.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+    .proj-tag{font-family:var(--pixel);font-size:0.35rem;color:var(--cyan);letter-spacing:0.15em;margin-bottom:1rem;position:relative;z-index:1}
+    .proj-title{font-family:var(--pixel);font-size:clamp(1rem,4vw,2.2rem);color:var(--pink);margin-bottom:0.5rem;position:relative;z-index:1;text-shadow:3px 3px 0 var(--purple)}
+    .proj-subtitle{font-family:var(--pixel);font-size:0.45rem;color:var(--dark);margin-bottom:1.5rem;position:relative;z-index:1;letter-spacing:0.05em}
+    .proj-desc{font-size:0.95rem;color:var(--muted);line-height:1.8;max-width:680px;margin-bottom:2rem;border-left:4px solid var(--pink);padding-left:1rem;position:relative;z-index:1}
+    .meta-grid{display:flex;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;margin-bottom:1.5rem}
+    .meta-item{background:var(--panel);border:2px solid var(--border);padding:0.6rem 1rem}
+    .meta-label{font-family:var(--pixel);font-size:0.28rem;color:var(--muted);display:block;margin-bottom:0.2rem;letter-spacing:0.1em}
+    .meta-value{font-family:var(--pixel);font-size:0.4rem;color:var(--pink)}
+    .proj-stack{display:flex;flex-wrap:wrap;gap:0.4rem;position:relative;z-index:1}
+    .tag{font-family:var(--pixel);font-size:0.33rem;padding:0.35rem 0.7rem;border:2px solid;letter-spacing:0.07em}
+    .tc{border-color:var(--cyan);color:var(--cyan)} .tp{border-color:var(--pink);color:var(--pink)}
+    .ty{border-color:var(--yellow);color:var(--yellow)} .tg{border-color:var(--green);color:var(--green)}
+    .tpu{border-color:var(--purple);color:var(--purple)}
+
+    .content{max-width:900px;margin:0 auto;padding:4rem 2rem}
+    .block{margin-bottom:4rem}
+    .block-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;padding-bottom:0.75rem;border-bottom:3px solid var(--border)}
+    .block-icon{font-size:1.2rem}
+    .block-title{font-family:var(--pixel);font-size:0.6rem;color:var(--dark);letter-spacing:0.05em}
+    .block-title span{color:var(--pink)}
+
+    p.body{font-size:0.88rem;color:var(--muted);line-height:1.85;margin-bottom:1rem}
+    h3.sub{font-family:var(--pixel);font-size:0.45rem;color:var(--cyan);margin-bottom:0.75rem;letter-spacing:0.05em}
+    h3.sub::before{content:'// ';color:var(--pink)}
+
+    /* PAPÉIS DA EQUIPE */
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .team-card{background:var(--panel);border:2px solid var(--border);padding:1rem;text-align:center}
+    .team-role{font-family:var(--pixel);font-size:0.38rem;color:var(--pink);display:block;margin-bottom:0.4rem;letter-spacing:0.07em}
+    .team-resp{font-size:0.75rem;color:var(--muted);line-height:1.5}
+
+    /* KANBAN */
+    .kanban-board{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1.5rem}
+    .kan-col{background:var(--bg2);border:2px solid var(--border);padding:0.75rem}
+    .kan-title{font-family:var(--pixel);font-size:0.3rem;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:2px solid;letter-spacing:0.08em}
+    .k1 .kan-title{color:var(--muted);border-color:var(--muted)}
+    .k2 .kan-title{color:var(--yellow);border-color:var(--yellow)}
+    .k3 .kan-title{color:var(--cyan);border-color:var(--cyan)}
+    .k4 .kan-title{color:var(--green);border-color:var(--green)}
+    .kan-card{background:var(--panel);border:1px solid var(--border);padding:0.4rem 0.55rem;margin-bottom:0.35rem;font-size:0.68rem;color:var(--dark)}
+
+    /* DECISÕES */
+    .decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    .decision-card{background:var(--panel);border:2px solid var(--border);padding:1.25rem;position:relative}
+    .decision-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .dec-a::before{background:var(--pink)} .dec-b::before{background:var(--cyan)}
+    .dec-c::before{background:var(--green)} .dec-d::before{background:var(--yellow)}
+    .dec-label{font-family:var(--pixel);font-size:0.3rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:0.5rem;display:block}
+    .dec-title{font-family:var(--pixel);font-size:0.42rem;color:var(--pink);margin-bottom:0.5rem}
+    .dec-text{font-size:0.78rem;color:var(--muted);line-height:1.6}
+
+    /* DESAFIOS */
+    .challenge-list{display:flex;flex-direction:column;gap:1rem}
+    .challenge-item{display:flex;gap:1rem;padding:1rem;background:var(--panel);border:2px solid var(--border)}
+    .challenge-icon{font-family:var(--pixel);font-size:0.6rem;flex-shrink:0;width:28px}
+    .challenge-title{font-family:var(--pixel);font-size:0.4rem;margin-bottom:0.4rem;color:var(--dark)}
+    .challenge-text{font-size:0.8rem;color:var(--muted);line-height:1.6}
+    .challenge-item.solved .challenge-icon{color:var(--green)}
+    .challenge-item.wip .challenge-icon{color:var(--yellow)}
+
+    /* RESULTADOS */
+    .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .result-card{background:var(--panel);border:2px solid var(--border);padding:1.25rem;text-align:center}
+    .result-num{font-family:var(--pixel);font-size:1rem;color:var(--pink);display:block;margin-bottom:0.4rem}
+    .result-label{font-size:0.75rem;color:var(--muted);line-height:1.5}
+
+    .next-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+    .next-list li{display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 1rem;background:var(--panel);border:2px solid var(--border);font-size:0.82rem;color:var(--muted)}
+    .next-list li::before{content:'▶';color:var(--pink);font-family:var(--pixel);font-size:0.4rem;flex-shrink:0;margin-top:2px}
+
+    .proj-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 4rem;border-top:3px solid var(--border);background:var(--bg2);flex-wrap:wrap;gap:1rem}
+    .proj-nav a{font-family:var(--pixel);font-size:0.38rem;color:var(--pink);text-decoration:none;border:2px solid var(--pink);padding:0.5rem 1rem;transition:all 0.2s;letter-spacing:0.08em}
+    .proj-nav a:hover{background:var(--pink);color:#fff}
+    .proj-nav-center{font-family:var(--pixel);font-size:0.4rem;color:var(--muted)}
+
+    footer{background:var(--bg);border-top:3px solid var(--pink);padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    footer p{font-family:var(--pixel);font-size:0.33rem;color:var(--muted);letter-spacing:0.07em}
+    footer p span{color:var(--pink)}
+
+    .fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:768px){
+      .proj-hero{padding:6rem 1.5rem 3rem}
+      .content{padding:3rem 1.5rem}
+      .kanban-board{grid-template-columns:1fr 1fr}
+      .decision-grid{grid-template-columns:1fr}
+      .proj-nav{padding:1.5rem}
+      footer{padding:1.25rem 1.5rem;flex-direction:column;text-align:center}
+    }
+    @media(max-width:480px){
+      .proj-title{font-size:0.9rem}
+      .kanban-board{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">alice<span>.dev</span></a>
+  <a href="index.html#projetos" class="back-btn">← voltar</a>
+</nav>
+
+<div class="proj-hero">
+  <p class="proj-tag">✦ extensão universitária · segurança digital · 03/2026 — atual</p>
+  <h1 class="proj-title">Escudo Digital</h1>
+  <p class="proj-subtitle">// educação em segurança digital · Lei Felca</p>
+  <p class="proj-desc">O Escudo Digital surgiu da necessidade de conscientizar pessoas sobre segurança digital de forma acessível e engajante. Como liderança técnica, conduzi uma equipe aplicando Scrum, Jira e boas práticas de desenvolvimento para criar um Mini Jogo Mobile e um Chatbot educacional, Análises Completas e Dinâmica para aulas.</p>
+  <div class="meta-grid">
+    <div class="meta-item"><span class="meta-label">TIPO</span><span class="meta-value">Extensão Universitária</span></div>
+    <div class="meta-item"><span class="meta-label">PERÍODO</span><span class="meta-value">03/2026 — Atual</span></div>
+    <div class="meta-item"><span class="meta-label">PAPEL</span><span class="meta-value">Líder Técnica</span></div>
+    <div class="meta-item"><span class="meta-label">EQUIPE</span><span class="meta-value">Multidisciplinar</span></div>
+  </div>
+  <div class="proj-stack">
+    <span class="tag tp">React</span><span class="tag tc">Python</span>
+    <span class="tag ty">Jira</span><span class="tag tg">Scrum</span>
+    <span class="tag tpu">Kanban</span><span class="tag tp">Lei Felca</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- LIDERANÇA E SCRUM -->
+  <div class="block fade-in">
+    <div class="block-header">
+      <span class="block-icon">👥</span>
+      <h2 class="block-title">liderança & <span>scrum</span></h2>
+    </div>
+
+    <p class="body">Diferente do Marki — onde eu era a única desenvolvedora — no Escudo Digital lidero uma equipe multidisciplinar. Isso exigiu não só habilidade técnica, mas gestão de pessoas, comunicação clara e processos bem definidos.</p>
+
+    <h3 class="sub">Papéis da equipe</h3>
+    <div class="team-grid">
+      <div class="team-card"><span class="team-role">Liderança Técnica</span><span class="team-resp">Alice — Arquitetura, code review, decisões técnicas e gestão ágil</span></div>
+      <div class="team-card"><span class="team-role">Desenvolvimento</span><span class="team-resp">Front-end do jogo mobile em React e implementação do Chatbot Python</span></div>
+      <div class="team-card"><span class="team-role">Conteúdo</span><span class="team-resp">Roteiro educacional alinhado e cenários de engenharia social</span></div>
+      <div class="team-card"><span class="team-role">Documentação</span><span class="team-resp">Documentação técnica, adequação legal e relatórios de progresso</span></div>
+    </div>
+
+    <h3 class="sub">Kanban com Jira</h3>
+    <p class="body">Optamos por Kanban em vez de Scrum puro por ser uma equipe com disponibilidades variadas. O fluxo contínuo permitiu que cada membro avançasse no seu ritmo sem travar o restante da equipe. Porém estamos explorando as duas metodologias no decorrer do projeto.</p>
+    <div class="kanban-board">
+      <div class="kan-col k1"><div class="kan-title">📋 backlog</div><div class="kan-card">Novos cenários</div><div class="kan-card">Fase 2 do jogo</div><div class="kan-card">Analytics</div></div>
+      <div class="kan-col k2"><div class="kan-title">⏳ a fazer</div><div class="kan-card">Revisão legal</div><div class="kan-card">Testes UX</div></div>
+      <div class="kan-col k3"><div class="kan-title">⚡ em prog.</div><div class="kan-card">Integração Chatbot</div><div class="kan-card">Documentação</div></div>
+      <div class="kan-col k4"><div class="kan-title">✓ entregue</div><div class="kan-card">Chatbot Python</div><div class="kan-card">Mini Jogo v1</div><div class="kan-card">Adequação Lei Felca</div><div class="kan-card">Setup Jira</div></div>
+    </div>
+
+    <p class="body">Como líder, realizei code reviews periódicos, conduzi as reuniões de alinhamento e fui responsável por desbloquear impedimentos técnicos. Aprendi que liderança é muito mais escuta ativa do que dar ordens.</p>
+  </div>
+
+  <!-- DECISÕES TÉCNICAS -->
+  <div class="block fade-in">
+    <div class="block-header">
+      <span class="block-icon">💻</span>
+      <h2 class="block-title">decisões <span>técnicas</span></h2>
+    </div>
+
+    <div class="decision-grid">
+      <div class="decision-card dec-a">
+        <span class="dec-label">POR QUE</span>
+        <h3 class="dec-title">React para o jogo</h3>
+        <p class="dec-text">Familiaridade da equipe com React e necessidade de rodar no mobile sem overhead de app nativo. A abordagem web-based facilitou o ciclo de desenvolvimento e testes.</p>
+      </div>
+      <div class="decision-card dec-b">
+        <span class="dec-label">POR QUE</span>
+        <h3 class="dec-title">Python para o Chatbot</h3>
+        <p class="dec-text">Ecossistema rico para NLP e chatbots. Python permitiu simular rapidamente cenários de engenharia social com lógica de árvore de decisão simples e eficaz.</p>
+      </div>
+      <div class="decision-card dec-c">
+        <span class="dec-label">DECISÃO DE PROCESSO</span>
+        <h3 class="dec-title">Jira como ferramenta central</h3>
+        <p class="dec-text">Escolhemos Jira por ser a ferramenta mais usada no mercado — a curva de aprendizado fez parte do projeto. A equipe saiu sabendo usar uma ferramenta profissional real.</p>
+      </div>
+      <div class="decision-card dec-d">
+        <span class="dec-label">DECISÃO DE CONTEÚDO</span>
+        <h3 class="dec-title">Gamificação educacional</h3>
+        <p class="dec-text">Em vez de slides ou textos, optamos por um jogo interativo. Cenários práticos de phishing, senhas fracas e engenharia social são mais eficazes quando o usuário "vive" a experiência.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESAFIOS -->
+  <div class="block fade-in">
+    <div class="block-header">
+      <span class="block-icon">⚡</span>
+      <h2 class="block-title">desafios & <span>aprendizados</span></h2>
+    </div>
+
+    <div class="challenge-list">
+      <div class="challenge-item solved">
+        <span class="challenge-icon">✓</span>
+        <div>
+          <h4 class="challenge-title">Gestão de equipe com disponibilidades diferentes</h4>
+          <p class="challenge-text">Nem todos tinham o mesmo tempo disponível. A solução foi granularizar as tarefas no Jira para que cada membro pudesse contribuir em janelas pequenas sem bloquear os demais.</p>
+        </div>
+      </div>
+      <div class="challenge-item solved">
+        <span class="challenge-icon">✓</span>
+        <div>
+          <h4 class="challenge-title">Adequação técnica à Lei Felca</h4>
+          <p class="challenge-text">Precisávamos que o conteúdo fosse juridicamente alinhado à Lei nº 15.211/2025. Resolvemos com pesquisa aprofundada da lei e revisão do conteúdo por etapas documentadas.</p>
+        </div>
+      </div>
+      <div class="challenge-item solved">
+        <span class="challenge-icon">✓</span>
+        <div>
+          <h4 class="challenge-title">Equilibrar liderança e desenvolvimento</h4>
+          <p class="challenge-text">Era fácil me perder no código e esquecer o papel de líder. Criei uma rotina: manhãs para gestão e revisões, tardes para desenvolvimento. Separar os chapéus foi essencial.</p>
+        </div>
+      </div>
+      <div class="challenge-item wip">
+        <span class="challenge-icon">→</span>
+        <div>
+          <h4 class="challenge-title">Expandir o Chatbot com NLP real</h4>
+          <p class="challenge-text">A versão atual usa lógica de árvore de decisão. O próximo passo é integrar uma biblioteca de NLP para tornar o chatbot mais natural e os cenários mais imprevisíveis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div class="block fade-in">
+    <div class="block-header">
+      <span class="block-icon">🎯</span>
+      <h2 class="block-title">resultados & <span>impacto</span></h2>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card"><span class="result-num">2</span><span class="result-label">Produtos entregues (jogo + chatbot)</span></div>
+      <div class="result-card"><span class="result-num">Lei<br>Felca</span><span class="result-label">Conteúdo legalmente alinhado</span></div>
+      <div class="result-card"><span class="result-num">Jira</span><span class="result-label">Gestão profissional aplicada</span></div>
+      <div class="result-card"><span class="result-num">1ª vez</span><span class="result-label">Liderando equipe multidisciplinar</span></div>
+    </div>
+
+    <p class="body">O Escudo Digital me fez crescer além do código. Aprendi que liderar significa criar condições para que todos entreguem o seu melhor — e que um processo bem definido é tão importante quanto a solução técnica em si. Foi a primeira vez que saí de um projeto pensando tanto em gestão quanto em desenvolvimento.</p>
+
+    <h3 class="sub">Próximos passos</h3>
+    <ul class="next-list">
+      <li>Expansão dos cenários do jogo para outras ameaças digitais</li>
+      <li>Integração de NLP real no Chatbot</li>
+      <li>Aplicação com usuários reais para medir eficácia educacional</li>
+      <li>Publicação do jogo como web app acessível</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="proj-nav">
+  <a href="marki.html">← marki</a>
+  <span class="proj-nav-center">02 / 02</span>
+  <a href="index.html#projetos">todos os projetos →</a>
+</div>
+
+<footer>
+  <p>© 2026 <span>Alice Alves de Sousa</span></p>
+  <p>feito com <span>♥</span> + pixel art</p>
+</footer>
+
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*100)})},{threshold:0.08});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
